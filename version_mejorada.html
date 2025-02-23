@@ -19,19 +19,29 @@
             margin-bottom: 20px;
         }
         .progress-bar {
+            position: relative;
             width: 100%;
-            background-color: #ddd;
-            margin: 5px 0;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin: 10px 0;
         }
         .progress-bar div {
-            height: 24px;
-            text-align: center;
-            color: white;
+            height: 30px;
+            border-radius: 5px;
+            background-color: #4caf50;
+            text-align: right;
+            padding-right: 10px;
+            line-height: 30px;
+            color: black;
+            font-weight: bold;
         }
-        .progress-bar div:nth-child(1) { background-color: #4caf50; }
-        .progress-bar div:nth-child(2) { background-color: #2196f3; }
-        .progress-bar div:nth-child(3) { background-color: #ff9800; }
-        .progress-bar div:nth-child(4) { background-color: #f44336; }
+        .progress-bar span {
+            position: absolute;
+            left: 10px;
+            color: black;
+            font-weight: bold;
+        }
+
     </style>
 </head>
 <body>
@@ -65,7 +75,9 @@
                 const progressBar = document.createElement("div");
                 progressBar.className = "progress-bar";
                 const progress = document.createElement("div");
+                const label = document.createElement("span");
                 progressBar.appendChild(progress);
+                progressBar.appendChild(label);
                 labelContainer.appendChild(progressBar);
             }
         }
@@ -82,8 +94,10 @@
                 const classPrediction = prediction[i];
                 const progressBar = labelContainer.childNodes[i];
                 const progress = progressBar.firstChild;
+                const label = progressBar.lastChild;
                 progress.style.width = `${classPrediction.probability * 100}%`;
-                progress.textContent = `${classPrediction.className}: ${(classPrediction.probability * 100).toFixed(2)}%`;
+                progress.textContent = `${(classPrediction.probability * 100).toFixed(2)}%`;
+                label.textContent = `${classPrediction.className}`;
             }
         }
 
